@@ -1,0 +1,30 @@
+Steps to install Mysql on Ubuntu 24
+
+Install mysql
+=============
+
+apt-get update && apt-get upgrade
+
+apt-get install mysql-server
+
+systemctl start mysql
+
+systemctl enable mysql
+
+Secure MySQL & Set Root Password
+==========
+mysql_secure_installation	//It will prompt you to set a root password, follow the recommended security settings.
+
+vi /etc/mysql/mysql.conf.d/mysqld.cnf
+
+bind-address = 0.0.0.0
+
+Then restart mysql service
+
+systemctl status mysql.servvice
+
+systemctl restart mysql.servvice
+
+
+
+
