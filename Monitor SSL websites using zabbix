@@ -65,3 +65,7 @@ Name: The website SSL going to expire in 10 days
 Expression: last(/host_name/system.run[/etc/zabbix/zabbix_agentd.d/checkssl.sh website_name])<=10
 
 Recovery Expression: last(/host_name/system.run[/etc/zabbix/zabbix_agentd.d/checkssl.sh website_name])>=10
+
+
+
+Then click on button "Add".
