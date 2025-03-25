@@ -1,0 +1,67 @@
+Monitor SSL websites
+====================
+
+
+Step 1: Add SSL check script to agent server.
+
+To monitor SSL certificate expiry dates in Zabbix, script will execute the SSL certificate check and update the date.
+
+Login to your Zabbix agent host SSH
+
+a) Go to /etc/zabbix/zabbix_agentd.conf.d directory which is the common for zabbix and named the file checkssl.sh
+
+vi  checkssl.sh
+
+Add below lines in script file:
+
+data=`echo | openssl s_client -servername $1 -connect $1:443 2>/dev/null | openssl x509 -noout -enddate | sed -e 's#notAfter=##'`
+
+ssldate=`date -d "${data}" '+%s'`
+nowdate=`date '+%s'`
+diff="$((${ssldate}-${nowdate}))"
+
+echo $((${diff}/86400))
+
+b) save and provide execute permissions for the script file.
+
+chmod 755 checkssl.sh
+
+
+c) Test by run below script
+
+./checkssl.sh google.com
+
+This command should return a number indicating how many days are left before the SSL certificate expires.
+
+
+d) Enable “EnableRemoteCommands=1” in /etc/zabbix/zabbix_agentd.conf
+
+e) Restart the Zabbix agent
+
+systemctl restart zabbix-agent
+
+
+Step 2: Create Item in Zabbix dashboared replace website_name with your website
+
+Then go to zabbix panel click on Datacollection >> Hosts >> select host >> click on Items >> click Create item
+
+Provide the details:
+
+Name: SSL check for website name
+Type: Zabbix agent
+key : system.run[/etc/zabbix/zabbix_agentd.d/checkssl.sh website_name]
+Type of information: Numeric(float)
+Host interface: server-ip:10050
+Update interval: 15s
+Then click "Add" button.
+
+Step 3: Create Trigger
+
+Go to trigger  >> Click on Create trigger then provide details.
+
+Name: The website SSL going to expire in 10 days
+
+
+Expression: last(/host_name/system.run[/etc/zabbix/zabbix_agentd.d/checkssl.sh website_name])<=10
+
+Recovery Expression: last(/host_name/system.run[/etc/zabbix/zabbix_agentd.d/checkssl.sh website_name])>=10
