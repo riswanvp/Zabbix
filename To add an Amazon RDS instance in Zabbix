@@ -1,0 +1,49 @@
+To add an Amazon RDS instance to Zabbix , you can follow these steps:
+
+ 
+
+
+Install the Zabbix database monitoring plugin:
+
+
+You can download the plugin from the official Zabbix website, and then install it on your Zabbix server by copying the plugin files to the /usr/lib/zabbix/plugins/ directory.
+ 
+
+Configure the Zabbix database monitoring plugin:
+
+To configure the plugin, you will need to create a new file named rds.cfg in the /etc/zabbix/zabbix_agentd.d/ directory, and then add the following lines to it:
+
+UserParameter=rds.discovery,/usr/lib/zabbix/plugins/rds.py discovery
+UserParameter=rds.status[*],/usr/lib/zabbix/plugins/rds.py status $1
+UserParameter=rds.performance[*],/usr/lib/zabbix/plugins/rds.py performance $1 $2
+ 
+
+Create an IAM role with the necessary permissions:
+
+
+To allow Zabbix to access your RDS instances, you will need to create an IAM role with the necessary permissions. The role should have the following policies attached to it:
+
+AmazonRDSReadOnlyAccess
+CloudWatchReadOnlyAccess
+ 
+
+Add the IAM role to the Zabbix server: 
+
+To add the IAM role to the Zabbix server, you will need to modify the Zabbix server configuration file (/etc/zabbix/zabbix_server.conf) and add the following line:
+
+
+AWS_ACCESS_KEY_ID=<your_access_key>
+AWS_SECRET_ACCESS_KEY=<your_secret_key>
+AWS_DEFAULT_REGION=<your_region>
+Replace <your_access_key>, <your_secret_key>, and <your_region> with your own AWS access key ID, secret access key, and region.
+
+ 
+Configure the RDS host in Zabbix:
+
+To configure the RDS host in Zabbix, you will need to add it as a new host and then link it to the RDS template. The RDS template can be found in the Zabbix templates library.
+
+ 
+Verify the RDS monitoring:
+
+
+After completing the above steps, Zabbix should start monitoring your RDS instance. You can verify the monitoring data by going to the Monitoring → Latest data page in the Zabbix web interface and selecting the RDS host.
