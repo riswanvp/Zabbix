@@ -1,0 +1,8 @@
+Add below parameters in agent conf to monitor 443 and 80 connection count
+
+### Apache concurrent connection status ##
+UserParameter=web.server.load,uptime |awk {'print $11'} |cut -d"," -f1
+UserParameter=apache_secure_connections,netstat -plane 2>/dev/null |grep :443 |wc -l
+UserParameter=apache_non_secure_connections,netstat -plane 2>/dev/null |grep :80 |wc -l
+UserParameter=number_of_connections_remoteips_80,netstat -plane 2>/dev/null |grep :80 |awk '{print $5}' | cut -d: -f1 | sort | uniq -c
+UserParameter=number_of_connections_remoteips_443,netstat -plane 2>/dev/null |grep :443 |awk '{print $5}' | cut -d: -f1 | sort | uniq -c
