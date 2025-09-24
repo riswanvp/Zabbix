@@ -1,0 +1,52 @@
+￼
+￼￼
+￼￼
+￼￼
+￼￼
+￼
+￼
+￼
+Sowparnika Sunil
+17/09 02:07
+Creating a new host group add hosts to it and Create a new teams channel and add its webhook in zabbix for receiving alerts in Teams
+1) Creating Host Group
+------------------
+
+ 
+
+Go to Data Collection --> Host groups --> Create Host Group
+
+ 
+
+Add the required hosts to this Host group
+
+ 
+
+2) Creating Trigger Actions
+------------------------
+
+ 
+
+Go to Alerts --> Action --> Trigger actions --> Create Action --
+
+ 
+
+3) Creating a Teams Channel and  generating Webhook
+------------------------------------------------
+
+ 
+
+Go to Teams --> Create a new channel under Shared-Zabbix-Alerts --> Go to settings of that particular channel --> Click to the 'Edit' option under 'Connectors' --> Click 'Configure' under 'Incoming Webhook' -- Click on 'Create' option and copy the webhook
+
+ 
+
+4) Creating Media Type in Zabbix
+-----------------------------
+
+ 
+
+Got to Alerts --> Media Types --> Create Media Type --> Inside the 'Type' option select 'Webhook' and under the Parameters add the Webhook URL's
+
+ 
+
+Go to User --> User Group --> Zabbix administrators --> Select the user 'Admin' --> Add 'Media' inside it
