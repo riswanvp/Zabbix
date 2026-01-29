@@ -15,6 +15,16 @@ Secure MySQL & Set Root Password
 ==========
 mysql_secure_installation	//It will prompt you to set a root password, follow the recommended security settings.
 
+
+If you need to reset mysql root user password:
+
+1. check current user authentication method 
+SELECT user, host, plugin FROM mysql.user WHERE user = 'root';
+
+2. Reset root password
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Custom_Password';
+
+
 vi /etc/mysql/mysql.conf.d/mysqld.cnf
 
 bind-address = 0.0.0.0
