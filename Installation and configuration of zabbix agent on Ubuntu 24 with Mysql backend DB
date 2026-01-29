@@ -55,6 +55,12 @@ systemctl enable zabbix-server zabbix-agent apache2
 
 8. To get zabbix UI http://<zabbix-serverip>/zabbix
 
-Complete the installation.
+Enter the Database port, username, Password for enabling the database connection.
+
+update the hostname 
+
+Once Complete the installation. Login with Username "Admin" and Password "zabbix"
+
+For the security best practise create new user for monitoring and administration
 
 
