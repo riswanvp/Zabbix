@@ -1,7 +1,10 @@
 Installation of zabbix server
+==============
 
+Prerequists:
 
-
+Server spec: 4vCPU and 16 GB RAM
+Software: MySQL server
 
 1. Install Zabbix repository to Ubuntu Machine:
 
